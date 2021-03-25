@@ -8,24 +8,23 @@ import static org.junit.Assert.*;
 public class Solution {
 
     public static int[] getProductsOfAllIntsExceptAtIndex(final int[] nums) {
-
         // make an array of the products
         if (nums==null || nums.length <= 1) {
             throw new IllegalArgumentException();
         }
-        final int[] products = new int[nums.length];
-        products[0] = 1;
-        int prevProduct = nums[0];
+        final int[] productsOfAllIntsExceptAtIndex = new int[nums.length];
+        int productFromLeft = 1;
+        productsOfAllIntsExceptAtIndex[0] = productFromLeft;
         for (int i=1; i<nums.length; i++) {
-            products[i] = prevProduct;
-            prevProduct *= nums[i];
+            productFromLeft *= nums[i-1];
+            productsOfAllIntsExceptAtIndex[i] = productFromLeft;
         }
-        prevProduct = nums[nums.length-1];
+        int productFromRight = nums[nums.length-1];
         for (int i=nums.length-2; i>=0; i--) {
-            products[i] *= prevProduct;
-            prevProduct *= nums[i];
+            productsOfAllIntsExceptAtIndex[i] *= productFromRight;
+            productFromRight *= nums[i];
         }
-        return products;
+        return productsOfAllIntsExceptAtIndex;
     }
 
     // tests
